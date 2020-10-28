@@ -1,0 +1,38 @@
+
+#include<stddef.h>
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+int main(int argc, char *argv[]) {
+
+  // Temporary variables
+  unsigned long long addr;
+  char behavior[10];
+  unsigned long long target;
+  int taken = 3;
+  int correct = 0;
+  int ghr = 0;
+
+  // Open file for reading
+  FILE *input = fopen("./test_input.txt", "r");
+
+  // The following loop will read a hexadecimal number and a string each
+  // time and then output them
+  while(fscanf(input, "%llx %10s %llx\n", &addr, behavior, &target) != EOF) {
+    if(!strncmp(behavior, "T", 2)) {
+      if(taken >= 2){
+	correct++;
+      }
+      if(taken != 3) taken++;
+    }
+    else{
+      if(taken < 2){
+        correct++;
+      }
+      if(taken!=0) taken--;
+    }
+  }
+  printf("%lld\n", correct);
+  return 0;
+}
+
